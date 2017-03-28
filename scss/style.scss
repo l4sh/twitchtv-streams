@@ -1,0 +1,53 @@
+$primary-color: #111;
+$secondary-color: #02bbba;
+$logo-width: 100px;
+$logo-height: $logo-width;
+$button-height: 20px;
+@mixin text-shadow($size, $color) {
+  text-shadow: ($size * 0.5) ($size * 0.5) $size $color;
+}
+
+@mixin box-shadow($size, $color) {
+  box-shadow: ($size * 0.5) ($size * 0.5) $size $color;
+}
+
+.thumbnail.logo {
+  img {
+    max-width: $logo-width;
+    max-height: $logo-height;
+  }
+  margin-bottom: 10px;
+}
+
+.callout.primary {
+  background-color: $primary-color;
+  color: $secondary-color;
+}
+
+.app-title {
+  font-family: 'Press Start 2P';
+  font-size: 2.5em;
+  @include text-shadow(6px, black);
+}
+
+.user-card {
+  margin: 20px 0;
+  padding: 10px;
+  @include box-shadow(6px, black);
+  
+  .media-bject-section {
+    .button {
+      margin: 0 auto;
+      width: 110px;
+      display: block;
+    }
+  }
+  .media-object {
+    margin-bottom: 0;
+  }
+  
+  iframe {
+    width: 100%;
+    height: 400px;
+  }
+}

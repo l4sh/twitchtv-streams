@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>TwitchTV Streams</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.min.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Press+Start+2P|Rubik'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <body ng-app="twitchViewer">
+
+  <div class="callout small primary">
+    <div class="row column text-center">
+      <h1 class="app-title">TwitchTV Streams</h1>
+    </div>
+  </div>
+
+  <div class="row medium-8 large-7 columns" ng-controller="UserListController as userlist">
+    <div class="user-card" ng-repeat="user in userlist.users">
+
+      <h4 ng-if="user.error">
+        <small>{{user.message}}</small>
+      </h4>
+      <div ng-controller="ExpandController as expand">
+        <div class="media-object" ng-if="!user.error">
+
+          <div class="media-object-section">
+            <div class="thumbnail logo">
+              <img src="{{user.logo || 'http://placehold.it/100x100'}}">
+            </div>
+            <div ng-if="!user.error && user.stream">
+
+              <button class="button tiny" ng-click="expand.toggle()">
+            View live stream
+          </button>
+            </div>
+
+          </div>
+
+          <div class="media-object-section">
+            <h4>
+            <a href="https://twitch.tv/{{user.name}}">
+              {{user.display_name}}
+            </a>
+            <small ng-if="user.stream">streaming</small>
+          </h4>
+            <p>{{user.bio || 'No user bio available'}}</p>
+            <div ng-if="!user.error && user.stream">
+              <ul class="breadcrumbs">
+                <li>
+                  Playing {{user.stream.game}}
+                </li>
+                <li>
+                  {{user.stream.viewers}} viewers
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div ng-if="!user.error && user.stream">
+
+
+          <expand show="expand.shown">
+            <iframe ng-src="{{'http://player.twitch.tv/?autoplay=false&channel=' + user.name | trustAsResourceUrl}}" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+          </expand>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-resource.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>
